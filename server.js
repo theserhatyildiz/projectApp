@@ -9,7 +9,9 @@ const jwt = require('jsonwebtoken')
 // importing models
 const userModel = require('./models/userModel')
 const foodModel =  require('./models/foodModel')
+const trackingModel = require('./models/trackingModel')
 const verifyToken = require('./verifyToken')
+
 
 // database connection
 
@@ -132,6 +134,25 @@ app.get("/foods/:name",verifyToken,async(req,res)=>{
     
 })
 
+// end point to track a food
+
+app.post("/track",verifyToken,async(req,res)=>{
+
+    let trackData = req.body;
+    
+    try
+    {
+        let data = await trackingModel.create(trackData);
+        res.status(201).send({message:'Food added successfully'});
+    }
+    catch(err)
+    {
+        console.log(err);
+        res.status(500).send({message:'Some problem in logging the food'})
+    }
+    
+
+})
 
 app.listen(process.env.PORT || PORT, () => {
     console.log('Server is running !!!')
