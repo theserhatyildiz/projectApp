@@ -154,6 +154,27 @@ app.post("/track",verifyToken,async(req,res)=>{
 
 })
 
+// end point to fetch all foods eaten by a user
+
+app.get("/track/:userid/:date",verifyToken,async(req,res)=>{
+
+    let userid = req.params.userid ; 
+    let date = new Date(req.params.date).toLocaleDateString();
+
+    try
+    {
+
+        let foods = await trackingModel.find({userId:userid,eatenDate:date}).populate('userId').populate('foodId')
+        res.send(foods);
+
+    }
+    catch(err)
+    {
+        console.log(err);
+        res.status(500).send({message:'Some problem in fetching all foods eaten by a user'})
+    }
+})
+
 app.listen(process.env.PORT || PORT, () => {
     console.log('Server is running !!!')
 })

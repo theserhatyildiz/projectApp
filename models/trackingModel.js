@@ -11,6 +11,10 @@ const trackingSchema = mongoose.Schema({
         ref:'foods',
         required:true
     },
+    eatenDate:{
+        type:String,
+        default:new Date().toLocaleDateString()
+    },
     quantity:{
         type:Number,
         min:1,
