@@ -68,7 +68,7 @@ app.post('/login', async(req,res) => {
                     jwt.sign({email:userCred.email}, "nutritionApp", (err,token)=>{
                         if(!err)
                         {
-                            res.send({message:"Login Success", token:token})
+                            res.send({message:"Login Success", token:token, userid:user._id,name:user.name})
                         }
                     })
                 }
