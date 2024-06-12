@@ -37,13 +37,13 @@ export default defineConfig({
               screenshots: [
                 {
                   src: 'screenshot1.PNG',
-                  sizes: '640x480',
+                  sizes: '1290x2796',
                   type: 'image/png',
                   label: 'Home screen'
                 },
                 {
                   src: 'screenshot2.PNG',
-                  sizes: '640x480',
+                  sizes: '1290x2796',
                   type: 'image/png',
                   label: 'Home screen'
                 },
