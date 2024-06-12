@@ -4,7 +4,7 @@ const cors = require('cors')
 require('dotenv').config()
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
-
+const path = require('path')
 
 // importing models
 const userModel = require('./models/userModel')
@@ -650,6 +650,25 @@ app.delete("/users/:userId/startdate", verifyToken, async (req, res) => {
     }
 });
 
+if (process.env.NODE_ENV === "production") {
+    // Serve the static files from the Vite build directory
+    app.use(express.static(path.join(__dirname, '/client/dist')));
+  
+    // Serve the JavaScript file
+    app.get('/assets/index-CW5KkyhG.js', (req, res) => {
+      res.sendFile(path.join(__dirname, '/client/dist/assets/index-CW5KkyhG.js'));
+    });
+  
+    // Handle all other routes by serving the index.html file
+    app.get('*', (req, res) => {
+      res.sendFile(path.join(__dirname, '/client/dist/index.html'));
+    });
+  } else {
+    // In development mode, just return a simple message
+    app.get('/', (req, res) => {
+      res.send('API running');
+    });
+  }
 
 
 app.listen(process.env.PORT || PORT, () => {
