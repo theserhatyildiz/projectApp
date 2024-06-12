@@ -40,7 +40,6 @@ export default defineConfig({
                   sizes: '1290x2796',
                   type: 'image/png',
                   label: 'Home screen',
-                  form_factor: 'wide'
                 },
                 {
                   src: 'screenshot2.PNG',
