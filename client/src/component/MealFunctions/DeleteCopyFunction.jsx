@@ -13,7 +13,7 @@ export default function DeleteCopyFunction({selectedFoods, setFoodsByMeal, mealN
     const handleDeleteClick = () => {
         console.log("Selected foods to delete:", selectedFoods);
 
-        fetch(`http://localhost:8000/deleteFoods`, {
+        fetch(`https://galwinapp-7861c5aaed27.herokuapp.com/deleteFoods`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",
@@ -51,7 +51,7 @@ export default function DeleteCopyFunction({selectedFoods, setFoodsByMeal, mealN
             console.log("Copied items with IDs:", copiedItemsWithId);
             const convertedCopyDate = new Date(copyDate).toISOString().slice(0, 10);
 
-            fetch(`http://localhost:8000/track/copy`, {
+            fetch(`https://galwinapp-7861c5aaed27.herokuapp.com/track/copy`, {
                 method: "POST",
                 body: JSON.stringify({
                     copiedItems: copiedItemsWithId.map(item => ({

@@ -27,7 +27,7 @@ export default function SearchFood() {
     function searchFood(event) {
         if (event.target.value.length !== 0) {
             // ------------------Calling the data to API------------------
-            fetch(`http://localhost:8000/foods/${event.target.value}`, {
+            fetch(`https://galwinapp-7861c5aaed27.herokuapp.com/foods/${event.target.value}`, {
                 method: "GET",
                 headers: {
                     "Authorization": `Bearer ${loggedData.loggedUser.token}`
