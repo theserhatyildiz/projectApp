@@ -31,10 +31,23 @@ export default defineConfig({
                 src: 'pwa-512x512.png',  
                 sizes: '512x512',  
                 type: 'image/png',  
-                purpose: 'any maskable',  
+                purpose: 'maskable',  
               },  
-              
-                    ],  
+              ],
+              screenshots: [
+                {
+                  src: 'screenshot1.png',
+                  sizes: '640x480',
+                  type: 'image/png',
+                  label: 'Home screen'
+                },
+                {
+                  src: 'screenshot2.png',
+                  sizes: '640x480',
+                  type: 'image/png',
+                  label: 'Home screen'
+                },
+              ],  
               },  
               workbox: {
                 globPatterns: ['**/*.{js,css,html,png,jpg,svg}'],
