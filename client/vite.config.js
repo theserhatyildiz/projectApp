@@ -39,13 +39,15 @@ export default defineConfig({
                   src: 'screenshot1.PNG',
                   sizes: '1290x2796',
                   type: 'image/png',
-                  label: 'Home screen'
+                  label: 'Home screen',
+                  form_factor: 'wide'
                 },
                 {
                   src: 'screenshot2.PNG',
                   sizes: '1290x2796',
                   type: 'image/png',
-                  label: 'Home screen'
+                  label: 'Home screen',
+                  form_factor: 'wide'
                 },
               ],  
               },  
