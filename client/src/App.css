@@ -223,6 +223,7 @@ a {
     row-gap: 0.65rem;
     background-color:rgb(233, 233, 233); 
     width: 100%;
+    margin-top: 1rem;
     margin-bottom: 4.5rem; /* adjustment for the gap between footer*/
 }
 
