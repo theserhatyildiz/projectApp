@@ -552,7 +552,7 @@ margin-top: 0.75rem;
     flex-direction: column;
     background-color: rgb(233, 233, 233);
     /* padding: 1rem 1rem; */
-    padding: 1rem 1.5rem 2.8rem 1.5rem; /* adjustment for the gap between footer*/
+    padding: 3rem 1.5rem 2.8rem 1.5rem; /* adjustment for the gap between footer*/
     height: auto;
 }
 
