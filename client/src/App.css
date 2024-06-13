@@ -199,13 +199,13 @@ a {
     width: 100%;
     background-color: rgb(233, 233, 233); /* Adjust as needed */
     z-index: 1000;
-    padding: 0.55rem 2rem;
+    padding: 3rem 2rem 1rem 2rem;
     display: flex;
     flex-direction: column;
 }
 
 .scrollable-content {
-    margin-top: 100px; /* Adjust based on the height of your fixed header */
+    margin-top: 4rem; /* Adjust based on the height of your fixed header */
     overflow-y: auto;
     max-height: calc(100vh - 100px); /* Adjust based on the height of your fixed header */
     width: 100%;
@@ -223,8 +223,9 @@ a {
     row-gap: 0.65rem;
     background-color:rgb(233, 233, 233); 
     width: 100%;
-    margin-top: 1rem;
-    margin-bottom: 4.5rem; /* adjustment for the gap between footer*/
+    padding-top: 4rem;
+    margin-top: 2rem;
+    margin-bottom: 0rem; /* adjustment for the gap between footer*/
 }
 
 
