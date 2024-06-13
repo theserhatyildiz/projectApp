@@ -1,7 +1,7 @@
 .container{
     height: 100vh;
     width:100%;
-    background-color: rgb(233, 233, 233);
+    background-color: white;
     color: black;
     padding: 1rem 1rem;
     display: flex;
@@ -197,7 +197,7 @@ a {
     position: fixed;
     top: 0;
     width: 100%;
-    background-color: rgb(233, 233, 233); /* Adjust as needed */
+    background-color: white; /* Adjust as needed */
     z-index: 1000;
     padding: 0.55rem 2rem;
     display: flex;
@@ -221,7 +221,7 @@ a {
     flex-direction: column;
     align-items: center;
     row-gap: 0.65rem;
-    background-color:rgb(233, 233, 233); 
+    background-color:white; 
     width: 100%;
     margin-bottom: 4.5rem; /* adjustment for the gap between footer*/
 }
@@ -236,7 +236,7 @@ a {
     font-size: 1rem;
     border-radius: 0.35rem;
     border: none;
-    background-color: white;
+    background-color: rgb(233, 233, 233);
     padding: 0.20rem 0.2rem;
     margin-bottom: 0.55rem;
     margin-top: 0.25rem;
@@ -291,7 +291,7 @@ a {
 .meal-container{
     width:100%;
     padding: 0.25rem 0.5rem;
-    background-color: white;
+    background-color: rgb(233, 233, 233);
     border-radius: 0.65rem;
     color: black;
     margin-bottom: 0.65rem;
@@ -354,7 +354,7 @@ a {
 .item{
     width:100%;
     padding: 0.25rem 0.5rem;
-    background-color: rgb(233, 233, 233);
+    background-color: rgb(203, 203, 203);
     border-radius: 0.65rem;
     margin-bottom: 0.25rem;
 }
@@ -475,6 +475,10 @@ button {
     align-items: flex-start;
 }
 
+.createfood-container .form{
+    border: 3px solid black;
+}
+
 .createfood-container h1{
     margin-left: 1rem;
     color: rgb(249, 106, 128);
@@ -487,6 +491,8 @@ button {
 
 .createfood-container .food{
 margin-top: 0.75rem;
+background-color: rgb(203, 203, 203);
+border: none;
 }
 
 .name-calorie-form{
@@ -506,7 +512,9 @@ margin-top: 0.75rem;
     text-indent: 0.25rem; 
     border: 2px solid rgb(242, 241, 247);
     border-radius: 0.25rem;
-    padding: 0.5rem 0 0.5rem 0;
+    padding: 0.6rem 0 0.6rem 0;
+    font-size: 0.75rem;
+    background-color: white;
 }
 
 .inp-cal{
@@ -514,7 +522,9 @@ margin-top: 0.75rem;
     text-indent: 0.25rem;
     border-radius: 0.25rem;
     border: 2px solid rgb(242, 241, 247);
-    padding: 0.5rem 0 0.5rem 0;
+    padding: 0.6rem 0 0.6rem 0;
+    font-size: 0.75rem;
+    background-color: white;
 }
 
 .createfood-container .nutrient{
@@ -532,13 +542,15 @@ margin-top: 0.75rem;
     text-indent: 0.25rem;
     background-color: white;
     margin-left: 0.4rem;
-    padding: 0.5rem 0 0.5rem 0;
+    padding: 0.6rem 0 0.6rem 0;
+    font-size: 0.75rem;
 }
 
 .createfood-container .food .btn-add{
     width: 100%;
     margin-top: 0.25rem;
     margin-left: 0;
+    padding: 0.50rem 0.50rem;
 }
 
 
@@ -548,7 +560,7 @@ margin-top: 0.75rem;
 .weight-container{
     display: flex;
     flex-direction: column;
-    background-color: rgb(233, 233, 233);
+    background-color: white;
     /* padding: 1rem 1rem; */
     padding: 1rem 1.5rem 2.8rem 1.5rem; /* adjustment for the gap between footer*/
     height: auto;
@@ -565,7 +577,7 @@ margin-top: 0.75rem;
     display: flex;
     flex-direction: column;
     margin-bottom: 1rem;
-    background-color: white;
+    background-color: rgb(233, 233, 233);
 }
 
 .weight-entry p{
@@ -585,19 +597,20 @@ margin-top: 0.75rem;
     margin-top: 0.75rem;
     border-radius: 0.35rem;
     border: none;
-    background-color: rgb(244, 242, 242);
+    background-color: rgb(203, 203, 203);
     padding: 0.20rem 0.2rem;
 }
 
 .weight-entry-box{
     display: flex;
     flex-direction: column;
+    background-color:rgb(233, 233, 233);
     }
 
 .weight-entry .form{
     border: none;
     padding: 0.45rem 2.5rem;
-    background-color: white;
+    background-color: rgb(233, 233, 233);
 }
 
 .inp-weight{
@@ -605,7 +618,7 @@ margin-top: 0.75rem;
     margin: 0 auto;
     border:none;
     border-radius: 0.35rem;
-    background-color: rgb(244, 242, 242);
+    background-color: rgb(203, 203, 203);
     text-align: center;
     font-size: 1rem;
     font-weight: 200;
@@ -619,7 +632,7 @@ margin-top: 0.75rem;
     text-align: center;
     margin-top: 1rem;
     margin-bottom: 1rem;
-    background-color: white;
+    background-color: rgb(233, 233, 233);
     width: 100%;
     font-size: 0.75rem;
     padding: 0.1rem 0.25rem;
@@ -724,7 +737,7 @@ label input{
     display: flex;
     flex-direction: column;
     width: 100%;
-    background-color: white;
+    background-color: rgb(233, 233, 233);
     border-radius: 0.65rem;
     padding-bottom: 1.5rem;
 }
@@ -743,7 +756,7 @@ label input{
 .weight-log{
     width: 90%;
     gap: 1rem;
-    background-color: rgb(233, 233, 233);
+    background-color: rgb(203, 203, 203);
     padding: 0.5rem 0.5rem;
     border-radius: 0.65rem;
     border: 2px solid rgba(128, 128, 128, 0.346);
@@ -780,7 +793,7 @@ label input{
     width: 100%;
     display: flex;
     justify-content: space-between;
-    background-color: rgb(248, 247, 247);
+    background-color: rgb(233, 233, 233);
     padding: 0.15rem 1rem;
     border-radius: 0.35rem;
 }
@@ -827,6 +840,7 @@ label input{
     background-color: rgb(244, 242, 242);
     margin-right: 1rem;
     padding: 0.1rem 1rem;
+    font-size: 1rem;
 }
 
 .meal-function-footer-wrapper {
@@ -849,7 +863,7 @@ label input{
 .meal-function-footer-button {
     color: rgb(249, 106, 128);
     font-weight: bold;
-    font-size: 0.95rem;
+    font-size: 1.15rem;
 }
 
 .success-copy{
