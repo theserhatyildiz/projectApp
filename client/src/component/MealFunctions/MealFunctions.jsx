@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import { UserContext } from "../../context/UserContext";
 import { useContext } from "react";
 import DeleteCopyFunction from "./DeleteCopyFunction";
+import ClipLoader from "react-spinners/ClipLoader";
 
 export default function MealFunctions() {
     let loggedData = useContext(UserContext);
@@ -14,6 +15,8 @@ export default function MealFunctions() {
     const [copyDate, setCopyDate] = useState(formatDate(new Date())); // Format copyDate
     const [message, setMessage] = useState({ type: "", text: "" });
     const location = useLocation();
+    const [loading, setLoading] = useState(true); // Initial loading state set to true
+    const [color] = useState("#d73750"); // Color state for ClipLoader
 
     // Function to format date as "YYYY-MM-DD"
     function formatDate(date) {
@@ -41,6 +44,7 @@ export default function MealFunctions() {
     }, [displayMealNumber]);
 
     const fetchFoodItems = (mealNumber) => {
+        setLoading(true); // Set loading to true before fetching data
         const queryParams = new URLSearchParams(location.search);
         const eatenDateParam = queryParams.get("eatenDate");
 
@@ -62,9 +66,11 @@ export default function MealFunctions() {
                 ...prevState,
                 [mealNumber]: data
             }));
+            setLoading(false); // Set loading to false after data is fetched
         })
         .catch((error) => {
             console.error("Error fetching food items:", error);
+            setLoading(false); // Set loading to false even if there is an error
         });
     };
 
@@ -103,29 +109,40 @@ export default function MealFunctions() {
         <section className="container createfood-container">
             <h1>Yiyecekler</h1>
             <div className="meal-function-container">
-                
-                {foodsByMeal[displayMealNumber] && foodsByMeal[displayMealNumber].map((food, index) => (
-                    <ul key={index}>
-                        <li>
-                            <div className="check-box-container">
-                                <div className="check-box">
-                                    <input 
-                                        type="checkbox" 
-                                        value={food._id} 
-                                        onChange={(event) => handleCheckboxChange(event, food._id)}
-                                    />
+                {loading ? (
+                    <div className="spinner-container">
+                        <ClipLoader
+                            color={color}
+                            loading={loading}
+                            size={30}
+                            aria-label="Loading Spinner"
+                            data-testid="loader"
+                        />
+                    </div>
+                ) : (
+                    foodsByMeal[displayMealNumber] && foodsByMeal[displayMealNumber].map((food, index) => (
+                        <ul key={index}>
+                            <li>
+                                <div className="check-box-container">
+                                    <div className="check-box">
+                                        <input 
+                                            type="checkbox" 
+                                            value={food._id} 
+                                            onChange={(event) => handleCheckboxChange(event, food._id)}
+                                        />
+                                    </div>
+                                    <div>
+                                        <h4>{food.details.Name}</h4>
+                                    </div>
                                 </div>
-                                <div>
-                                    <h4>{food.details.Name}</h4>
+                                <div className="food-info">
+                                    <h4>{food.quantity}g -</h4>
+                                    <p>{formatNumber(food.details.Calorie)} cal: {formatNumber(food.details.Protein)}p, {formatNumber(food.details.Carbohydrate)}k, {formatNumber(food.details.Fat)}y, {formatNumber(food.details.Fiber)}lif</p>
                                 </div>
-                            </div>
-                            <div className="food-info">
-                                <h4>{food.quantity}g -</h4>
-                                <p>{formatNumber(food.details.Calorie)} cal: {formatNumber(food.details.Protein)}p, {formatNumber(food.details.Carbohydrate)}k, {formatNumber(food.details.Fat)}y, {formatNumber(food.details.Fiber)}lif</p>
-                            </div>
-                        </li>
-                    </ul>
-                ))}
+                            </li>
+                        </ul>
+                    ))
+                )}
             </div>
             <div>
                 <input
@@ -143,10 +160,10 @@ export default function MealFunctions() {
                 </select>
             </div>
             {message.text && (
-                    <div className={`message ${message.type}`}>
-                        {message.text}
-                    </div>
-                )}
+                <div className={`message ${message.type}`}>
+                    {message.text}
+                </div>
+            )}
             <DeleteCopyFunction
                 selectedFoods={selectedFoods}
                 foodsByMeal={foodsByMeal} 
@@ -159,3 +176,5 @@ export default function MealFunctions() {
         </section>
     );
 }
+
+
