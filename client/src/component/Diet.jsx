@@ -5,6 +5,7 @@ import Header from './Header';
 import Footer from "./Footer";
 import Meal from "./Meal";
 import ObjectId from 'bson-objectid';
+import MoonLoader from "react-spinners/MoonLoader";
 
 export default function Diet() {
     // ------------------Variables------------------
@@ -18,11 +19,13 @@ export default function Diet() {
         totalFats: 0,
         totalFiber: 0
     });
+    const [loading, setLoading] = useState(true); // Initial loading state set to true
+    const [color] = useState("#d73750"); // Color state for ClipLoader
 
     // ------------------Functions------------------
 
     useEffect(() => {
-        fetch(`https://galwinapp-7861c5aaed27.herokuapp.com/track/${loggedUser.userid}/${currentDateView.getMonth() + 1}-${currentDateView.getDate()}-${currentDateView.getFullYear()}`, {
+        fetch(`http://localhost:8000/track/${loggedUser.userid}/${currentDateView.getMonth() + 1}-${currentDateView.getDate()}-${currentDateView.getFullYear()}`, {
             method: "GET",
             headers: {
                 "Authorization": `Bearer ${loggedUser.token}`
@@ -32,9 +35,11 @@ export default function Diet() {
         .then((data) => {
             console.log(data);
             setItems(data);
+            setLoading(false); // Set loading to false after data is fetched
         })
         .catch((err) => {
             console.log(err);
+            setLoading(false); // Set loading to false even if there is an error
         });
     }, [loggedUser, currentDateView]);
 
@@ -54,7 +59,7 @@ export default function Diet() {
     };
 
     function deleteFood(itemId) {
-        return fetch(`https://galwinapp-7861c5aaed27.herokuapp.com/track/${itemId}`, {
+        return fetch(`http://localhost:8000/track/${itemId}`, {
             method: "DELETE",
             headers: {
                 "Authorization": `Bearer ${loggedUser.token}`
@@ -119,57 +124,68 @@ export default function Diet() {
     });
 
     return (
-        <section className="container diet-container">
-            <Header />
-            <Footer/>
-            <div className="fixed-header">
-                <input className="date-box" type="date" value={currentDateView.toISOString().slice(0, 10)} onChange={(event) => {
-                    setCurrentDateView(new Date(event.target.value));
-                }}/>
-
-                <div className="totals-container">
-
-                    
-                    
-                    <div className="total-macros">
-
-                        <div>
-                            <h3>Total Kalori: {total.totalCalories} kcal</h3>
-                        </div>
-
-                        <div className="totals-row">
-                            <div className="totals">
-                                <p className="n-title">Pro</p>
-                                <p className="n-value">{total.totalProtein}g</p>
-                            </div>
-                            <div className="totals">
-                                <p className="n-title">Karb</p>
-                                <p className="n-value">{total.totalCarbs}g</p>
-                            </div>
-                            <div className="totals">
-                                <p className="n-title">Yağ</p>
-                                <p className="n-value">{total.totalFats}g</p>
-                            </div>
-                            <div className="totals">
-                                <p className="n-title">Lif</p>
-                                <p className="n-value">{total.totalFiber}g</p>
-                            </div>
-                        </div>
-                        
+        <>
+            <section className="container diet-container">
+                {loading ? (
+                    <div className="spinner-container">
+                        <MoonLoader
+                            color={color}
+                            loading={loading}
+                            size={25}
+                            aria-label="Loading Spinner"
+                            data-testid="loader"
+                        />
                     </div>
-                </div>
-            </div>
-            <div className="scrollable-content">
-                {meals.map((meal) => (
-                    <Meal 
-                        key={meal.number} 
-                        items={mealItems.filter((item) => item.mealNumber === meal.number)} 
-                        mealNumber={meal.number} 
-                        deleteFood={handleDeleteFood}
-                        eatenDate={currentDateView.toISOString().slice(0, 10)}
-                    />
-                ))}
-            </div>
-        </section>
+                ) : (
+                    <>
+                        <Header />
+                        <div className="fixed-header">
+                            <input className="date-box" type="date" value={currentDateView.toISOString().slice(0, 10)} onChange={(event) => {
+                                setCurrentDateView(new Date(event.target.value));
+                            }}/>
+
+                            <div className="totals-container">
+                                <div className="total-macros">
+                                    <div>
+                                        <h3>Total Kalori: {total.totalCalories} kcal</h3>
+                                    </div>
+
+                                    <div className="totals-row">
+                                        <div className="totals">
+                                            <p className="n-title">Pro</p>
+                                            <p className="n-value">{total.totalProtein}g</p>
+                                        </div>
+                                        <div className="totals">
+                                            <p className="n-title">Karb</p>
+                                            <p className="n-value">{total.totalCarbs}g</p>
+                                        </div>
+                                        <div className="totals">
+                                            <p className="n-title">Yağ</p>
+                                            <p className="n-value">{total.totalFats}g</p>
+                                        </div>
+                                        <div className="totals">
+                                            <p className="n-title">Lif</p>
+                                            <p className="n-value">{total.totalFiber}g</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="scrollable-content">
+                            {meals.map((meal) => (
+                                <Meal 
+                                    key={meal.number} 
+                                    items={mealItems.filter((item) => item.mealNumber === meal.number)} 
+                                    mealNumber={meal.number} 
+                                    deleteFood={handleDeleteFood}
+                                    eatenDate={currentDateView.toISOString().slice(0, 10)}
+                                />
+                            ))}
+                        </div>
+                    </>
+                )}
+            </section>
+            <Footer />
+        </>
     );
 }
