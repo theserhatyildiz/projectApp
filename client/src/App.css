@@ -576,6 +576,8 @@ border: none;
 .weight-container span{
     font-weight: bold;
     text-decoration: underline;
+    display: flex;
+    justify-content: center;
 }
 
 .weight-entry{
