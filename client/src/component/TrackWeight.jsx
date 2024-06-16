@@ -3,6 +3,7 @@ import { useContext, useState, useEffect } from "react";
 import '@fortawesome/fontawesome-free/css/all.css';
 import Header from "./Header";
 import Footer from "./Footer";
+import ClipLoader from "react-spinners/ClipLoader";
 
 export default function TrackWeight() {
     const loggedData = useContext(UserContext);
@@ -15,6 +16,8 @@ export default function TrackWeight() {
     const [startDate, setStartDate] = useState(""); // State variable for the start date
     const [startDateEntry, setStartDateEntry] = useState("");
 
+    const [loading, setLoading] = useState(true); // Initial loading state set to true
+    const [color] = useState("#d73750"); // Color state for ClipLoader
 
 
     // Define state variables to store the weekly averages and their difference
@@ -24,6 +27,7 @@ export default function TrackWeight() {
     const [totalDifference, setTotalDifference] = useState(0);
 
     useEffect(() => {
+        setLoading(true); // Start loading
       if (shouldFetchData) {
         fetchWeightEntries();
         console.log("Fetching weight entries...");
@@ -43,8 +47,10 @@ export default function TrackWeight() {
             calculateWeeklyAverage();
             calculatePreviousWeeklyAverage();
             calculateTotalDifference();
+            setLoading(false); // Stop loading after data is fetched
         } catch (error) {
             console.error("Error fetching start date from server:", error);
+            setLoading(false); // Stop loading after data is fetched
         }
     };
 
@@ -64,7 +70,7 @@ export default function TrackWeight() {
         // Function to fetch weight entries for a specific month
         const fetchEntriesForMonth = async (month, choice) => { // Pass choice as an argument
             try {
-                const response = await fetch(`https://galwinapp-7861c5aaed27.herokuapp.com/weights/${userId}/${year}/${month}?choice=${choice}`, { // Include choice in the URL
+                const response = await fetch(`http://localhost:8000/weights/${userId}/${year}/${month}?choice=${choice}`, { // Include choice in the URL
                     method: "GET",
                     headers: {
                         "Authorization": `Bearer ${token}`,
@@ -99,9 +105,11 @@ export default function TrackWeight() {
                 allWeightEntries = results.reduce((acc, curr) => acc.concat(curr), []);
                 console.log("All Weight Entries Data:", allWeightEntries);
                 setWeightEntries(allWeightEntries);
+                setLoading(false); // Stop loading after data is fetched
             })
             .catch((error) => {
                 console.error("Error fetching weight entries:", error);
+                setLoading(false); // Stop loading after data is fetched
             });
     };
     
@@ -147,7 +155,7 @@ export default function TrackWeight() {
     }
 
     const createWeightEntry = (formData) => {
-        fetch("https://galwinapp-7861c5aaed27.herokuapp.com/weights", {
+        fetch("http://localhost:8000/weights", {
             method: "POST",
             body: JSON.stringify(formData),
             headers: {
@@ -166,7 +174,7 @@ export default function TrackWeight() {
     }
 
     const updateWeightEntry = (entryId, formData) => {
-        fetch(`https://galwinapp-7861c5aaed27.herokuapp.com/weights/${entryId}`, {
+        fetch(`http://localhost:8000/weights/${entryId}`, {
             method: "PUT",
             body: JSON.stringify(formData),
             headers: {
@@ -203,7 +211,7 @@ export default function TrackWeight() {
 
 
     const handleDelete = (entryId) => {
-        fetch(`https://galwinapp-7861c5aaed27.herokuapp.com/weights/${entryId}`, {
+        fetch(`http://localhost:8000/weights/${entryId}`, {
             method: "DELETE",
             headers: {
                 "Authorization": `Bearer ${loggedData.loggedUser.token}`,
@@ -413,7 +421,7 @@ export default function TrackWeight() {
     const userId = loggedData.loggedUser.userid;
     const token = loggedData.loggedUser.token;
 
-    fetch(`https://galwinapp-7861c5aaed27.herokuapp.com/users/${userId}/${newStartDate}`, {
+    fetch(`http://localhost:8000/users/${userId}/${newStartDate}`, {
         method: "PUT",
         headers: {
             "Authorization": `Bearer ${token}`,
@@ -437,7 +445,7 @@ const fetchStartDateFromServer = () => {
     // Fetch the start date from the server
     const userId = loggedData.loggedUser.userid;
     const token = loggedData.loggedUser.token;
-    fetch(`https://galwinapp-7861c5aaed27.herokuapp.com/users/${userId}/startdate`, {
+    fetch(`http://localhost:8000/users/${userId}/startdate`, {
         method: "GET",
         headers: {
             "Authorization": `Bearer ${token}`,
@@ -463,7 +471,7 @@ const fetchStartDateFromServer = () => {
 const handleDeleteStartDate = () => {
     const userId = loggedData.loggedUser.userid;
     const token = loggedData.loggedUser.token;
-    fetch(`https://galwinapp-7861c5aaed27.herokuapp.com/users/${userId}/startdate`, {
+    fetch(`http://localhost:8000/users/${userId}/startdate`, {
         method: "DELETE",
         headers: {
             "Authorization": `Bearer ${token}`,
@@ -486,149 +494,155 @@ const handleDeleteStartDate = () => {
     });
 };
 
-    return (
-        <section className="container weight-container">
-            <Header/>
-            <Footer/>
-            <span onClick={handleEntryClick}>Kilo Girişi</span>
-            
-            <div className="weight-entry">
+return (
+    <section className="container weight-container">
+        <Header />
+        <Footer />
 
-            {showEntryField && (
-              <div className="weight-entry-start">
-                <input
-                    className="date-box"
-                    type="date"
-                    value={weightDetails.date}
-                    onChange={handleDateChange}
+        {loading ? (
+            <div className="spinner-container">
+                <ClipLoader
+                    color={color}
+                    loading={loading}
+                    size={25}
+                    aria-label="Loading Spinner"
+                    data-testid="loader"
                 />
+            </div>
+        ) : (
+            <div>
+                <span onClick={handleEntryClick}>Kilo Girişi</span>
+        
+                <div className="weight-entry">
+                    {showEntryField && (
+                        <div className="weight-entry-start">
+                            <input
+                                className="date-box"
+                                type="date"
+                                value={weightDetails.date}
+                                onChange={handleDateChange}
+                            />
 
-                <form className="form" onSubmit={handleSubmit}>
-                    <div className="weight-entry-box">
-                        <input
-                            type="number"
-                            step="0.01"
-                            onChange={handleInput}
-                            className="inp-weight"
-                            placeholder="Kilo"
-                            name="weight"
-                            value={weightDetails.weight}
-                            required
-                        />
-
-                        <p className="weight-entry-box-paraf">Kilonuzu sabah hiçbir şey yemeden
-                        içmeden, tuvaleti kullandıktan sonra aynı
-                        saatte tartmanız önerilmektedir.</p>
-                        <div className="weight-entry-box-wc">
-                            <p className="weight-entry-box-wc-question">Tuvalete çıktınız mı?</p>
-                            <div>
-                                <label>
+                            <form className="form" onSubmit={handleSubmit}>
+                                <div className="weight-entry-box">
                                     <input
-                                        type="radio"
-                                        name="choice"
-                                        value="✅"
-                                        onChange={handleWcInput}
-                                        checked={wcDetails.choice === "✅"} // Add this line to ensure correct default selection
+                                        type="number"
+                                        step="0.01"
+                                        onChange={handleInput}
+                                        className="inp-weight"
+                                        placeholder="Kilo"
+                                        name="weight"
+                                        value={weightDetails.weight}
                                         required
                                     />
-                                    Evet
-                                </label>
-                                <label>
-                                    <input
-                                        type="radio"
-                                        name="choice"
-                                        value="❌"
-                                        onChange={handleWcInput}
-                                        checked={wcDetails.choice === "❌"} // Add this line to ensure correct default selection
-                                        required
-                                    />
-                                    Hayır
-                                </label>
-                            </div>
-                        </div>
-                        <button className="btn-add">+</button>
 
-                        <div className="start-date-box">
-                        <button onClick={handleMakeStartDate}>Bu tarihi başlangıç yap</button>
+                                    <p className="weight-entry-box-paraf">Kilonuzu sabah hiçbir şey yemeden içmeden, tuvaleti kullandıktan sonra aynı saatte tartmanız önerilmektedir.</p>
+                                    <div className="weight-entry-box-wc">
+                                        <p className="weight-entry-box-wc-question">Tuvalete çıktınız mı?</p>
+                                        <div>
+                                            <label>
+                                                <input
+                                                    type="radio"
+                                                    name="choice"
+                                                    value="✅"
+                                                    onChange={handleWcInput}
+                                                    checked={wcDetails.choice === "✅"} // Add this line to ensure correct default selection
+                                                    required
+                                                />
+                                                Evet
+                                            </label>
+                                            <label>
+                                                <input
+                                                    type="radio"
+                                                    name="choice"
+                                                    value="❌"
+                                                    onChange={handleWcInput}
+                                                    checked={wcDetails.choice === "❌"} // Add this line to ensure correct default selection
+                                                    required
+                                                />
+                                                Hayır
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <button className="btn-add">+</button>
 
-                        {startDate && <p className="start-date-display">Başlangıç: {new Date(startDate).toLocaleDateString('tr-TR')}</p>}   
-                        </div>
-      
-                    </div>
-                    <p className={message.type}>{message.text}</p>
-                </form>
-              </div>
-            )}
-
-            </div>
-
-            <div className="weight-data">
-                {/* Display weekly average, previous weekly average, weekly average change, and total change */}
-                <div className="weight-data-info">
-                    <p className="info-title-avg">Güncel</p>
-                    <p className="info-subtitle-avg">Ortalama</p>
-                    <p className="info-value-avg">{weeklyAverage}kg</p>
-                </div>
-
-                <div className="weight-data-info">
-                    <p className="info-title-avg">Önceki</p>
-                    <p className="info-subtitle-avg">Ortalama</p>
-                    <p className="info-value-avg">{previousWeeklyAverage}kg</p>
-                </div>
-
-                <div className="weight-data-info">
-                    <p className="info-title">Haftalık</p>
-                    <p className="info-title">Değişim</p>
-                    <p className="info-value">{weeklyAverageDifference}kg</p>
-                </div>
-
-                <div className="weight-data-info">
-                    <p className="info-title">Toplam</p>
-                    <p className="info-title">Değişim</p>
-                    <p className="info-value">{totalDifference >= 0 ? '+' : '-'}{Math.abs(totalDifference)}kg</p>
-                </div>
-            </div>
-
-            {/* Display weight entries */}
-            <div className="weight-entries-container">
-                {groupWeightEntriesByMonth().map(([monthYear, entries]) => (
-                    <div className="weight-log-container" key={monthYear}>
-                        <h2>{monthYear}</h2>
-                        {entries.map((entry, index) => (
-                            // <div key={index} className={`weight-log ${entry.date.substring(0, 10) === startDate ? 'start-date' : ''}`}>
-                            <div key={index} className={`weight-log ${startDate && entry.date && entry.date.substring(0, 10) === startDate.substring(0, 10) ? 'start-date' : ''}`}>
-                                <div className="weight-log-items">
-                                    <div className="items-info">
-                                        <p className="l-value">{new Date(entry.date).toLocaleDateString('tr-TR')} | </p>
-                                        <p className="l-value">{entry.weight}kg</p>
-                                        <p className="l-value">WC: {entry.choice}</p> {/* Display choice here */}
-                                        <button onClick={() => handleDelete(entry._id)}>
-                                            <i className="fa-regular fa-trash-can"></i>
-                                        </button>
+                                    <div className="start-date-box">
+                                        <button onClick={handleMakeStartDate}>Bu tarihi başlangıç yap</button>
                                         
+                                        {startDate && <p className="start-date-display">Başlangıç: {new Date(startDate).toLocaleDateString('tr-TR')}</p>}   
                                     </div>
                                 </div>
-                                
-                                <div className="start-date-buttons">
-                                     {/* {entry.date.substring(0, 10) === startDate && <p className="start-date-text">Başlangıç!</p>} */}
-                                     {startDate && startDate.substring(0, 10) && entry.date && entry.date.substring(0, 10) === startDate.substring(0, 10) && (
-                                    <p className="start-date-text">Başlangıç!</p>
-                                    )}
+                                <p className={message.type}>{message.text}</p>
+                            </form>
+                        </div>
+                    )}
 
-                                    
+                </div>
 
-                                     {/* Button to delete start date */}
-                                     {startDate && entry.date && entry.date.substring(0, 10) === startDate.substring(0, 10) && (
-                                        <button onClick={handleDeleteStartDate}>
-                                            <i className="fa-regular fa-trash-can"></i></button>
-                                        )}
-                                </div>
-
-                            </div>
-                        ))}
+                <div className="weight-data">
+                    {/* Display weekly average, previous weekly average, weekly average change, and total change */}
+                    <div className="weight-data-info">
+                        <p className="info-title-avg">Güncel</p>
+                        <p className="info-subtitle-avg">Ortalama</p>
+                        <p className="info-value-avg">{weeklyAverage}kg</p>
                     </div>
-                ))}
+
+                    <div className="weight-data-info">
+                        <p className="info-title-avg">Önceki</p>
+                        <p className="info-subtitle-avg">Ortalama</p>
+                        <p className="info-value-avg">{previousWeeklyAverage}kg</p>
+                    </div>
+
+                    <div className="weight-data-info">
+                        <p className="info-title">Haftalık</p>
+                        <p className="info-title">Değişim</p>
+                        <p className="info-value">{weeklyAverageDifference}kg</p>
+                    </div>
+
+                    <div className="weight-data-info">
+                        <p className="info-title">Toplam</p>
+                        <p className="info-title">Değişim</p>
+                        <p className="info-value">{totalDifference >= 0 ? '+' : '-'}{Math.abs(totalDifference)}kg</p>
+                    </div>
+                </div>
+
+                {/* Display weight entries */}
+                <div className="weight-entries-container">
+                    {groupWeightEntriesByMonth().map(([monthYear, entries]) => (
+                        <div className="weight-log-container" key={monthYear}>
+                            <h2>{monthYear}</h2>
+                            {entries.map((entry, index) => (
+                                <div key={index} className={`weight-log ${startDate && entry.date && entry.date.substring(0, 10) === startDate.substring(0, 10) ? 'start-date' : ''}`}>
+                                    <div className="weight-log-items">
+                                        <div className="items-info">
+                                            <p className="l-value">{new Date(entry.date).toLocaleDateString('tr-TR')} | </p>
+                                            <p className="l-value">{entry.weight}kg</p>
+                                            <p className="l-value">WC: {entry.choice}</p> {/* Display choice here */}
+                                            <button onClick={() => handleDelete(entry._id)}>
+                                                <i className="fa-regular fa-trash-can"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    
+                                    <div className="start-date-buttons">
+                                        {startDate && startDate.substring(0, 10) && entry.date && entry.date.substring(0, 10) === startDate.substring(0, 10) && (
+                                            <p className="start-date-text">Başlangıç!</p>
+                                        )}
+
+                                        {/* Button to delete start date */}
+                                        {startDate && entry.date && entry.date.substring(0, 10) === startDate.substring(0, 10) && (
+                                            <button onClick={handleDeleteStartDate}>
+                                                <i className="fa-regular fa-trash-can"></i>
+                                            </button>
+                                        )}
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    ))}
+                </div>
             </div>
-        </section>
-    );
-}
+        )}
+    </section>
+)}
+

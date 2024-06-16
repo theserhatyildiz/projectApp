@@ -114,7 +114,7 @@ export default function MealFunctions() {
                         <ClipLoader
                             color={color}
                             loading={loading}
-                            size={30}
+                            size={25}
                             aria-label="Loading Spinner"
                             data-testid="loader"
                         />

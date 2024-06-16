@@ -5,7 +5,7 @@ import Header from './Header';
 import Footer from "./Footer";
 import Meal from "./Meal";
 import ObjectId from 'bson-objectid';
-import MoonLoader from "react-spinners/MoonLoader";
+import ClipLoader from "react-spinners/ClipLoader";
 
 export default function Diet() {
     // ------------------Variables------------------
@@ -128,7 +128,7 @@ export default function Diet() {
             <section className="container diet-container">
                 {loading ? (
                     <div className="spinner-container">
-                        <MoonLoader
+                        <ClipLoader
                             color={color}
                             loading={loading}
                             size={25}
