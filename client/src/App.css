@@ -570,7 +570,7 @@ border: none;
     background-color: white;
     /* padding: 1rem 1rem; */
     padding: 1rem 1.5rem 2.8rem 1.5rem; /* adjustment for the gap between footer*/
-    height: auto;
+    height: auto;  
 }
 
 .weight-container span{

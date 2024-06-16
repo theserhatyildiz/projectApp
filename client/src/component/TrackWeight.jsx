@@ -511,7 +511,8 @@ return (
             </div>
         ) : (
             <div>
-                <span onClick={handleEntryClick}>Kilo Girişi</span>
+                {/* <span onClick={handleEntryClick}>Kilo Girişi</span> */}
+                <span>Kilo Girişi</span>
         
                 <div className="weight-entry">
                     {showEntryField && (
