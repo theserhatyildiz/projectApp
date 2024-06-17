@@ -82,6 +82,8 @@ a {
     font-weight: bold;  
 }
 
+/* search food page css */
+
 .search-container{
     flex-direction: column;
 }
@@ -118,6 +120,15 @@ a {
 .search-results::-webkit-scrollbar {
     display: none; /* Hide the scrollbar */
 }
+
+.spinner-container-searchFood{
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: 5rem;
+    height: 100vh;
+}
+
 
 /* food data display css */
 
@@ -220,6 +231,7 @@ a {
     align-items: center;
     height: 100vh;
 }
+
 /* Adjustments for the layout */
 .container.diet-container {
     height: 100vh;

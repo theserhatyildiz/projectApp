@@ -70,7 +70,7 @@ export default function SearchFood() {
             <div className="search">
                 <input className="search-inp" type="search" onChange={searchFood} placeholder="Yiyecek Arayın" />
                 {loading ? (
-                    <div className="spinner-container">
+                    <div className="spinner-container-searchFood">
                         <ClipLoader
                             color={color}
                             loading={loading}
