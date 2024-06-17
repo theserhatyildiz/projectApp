@@ -140,8 +140,6 @@ a {
     background-color: white;
     border-radius: 0.60rem;
     border: 2px solid rgb(242, 241, 247);
-    display: flex;
-    flex-wrap: wrap;
     row-gap: 0.35rem;
 }
 
@@ -158,25 +156,32 @@ a {
     color: rgb(249, 106, 128);
 }
 
-.nutrient{
-    width: 50%;
+.macros{
+    width: 100%;
+}
+
+.macros .nutrient{
+    width: 100%;
     padding: 0.625rem 0rem;
-    background-color: rgb(233, 233, 233);
     border-radius: 0.20rem;
+    display: flex;
+    justify-content: space-around;
+    background-color: (242, 241, 247);
     
 }
 
-.n-title{
+.nutrient .n-title{
     font-weight: bold;
     color: black;
+    text-align: center;
 }
 
 .n-value{
     color: black;
 }
 
-.nutrient p{
-    margin-left: 0.85rem;
+.macros .nutrient p{
+    margin-left: 0rem;
 }
 
 .inp-quant{

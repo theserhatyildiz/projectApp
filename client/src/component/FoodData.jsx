@@ -56,7 +56,7 @@ export default function FoodData(props) {
     }
 
     function createFoodItem(trackedItem) {
-        fetch("https://galwinapp-7861c5aaed27.herokuapp.com/track", {
+        fetch("http://localhost:8000/track", {
             method: "POST",
             body: JSON.stringify(trackedItem),
             headers: {
@@ -86,7 +86,7 @@ export default function FoodData(props) {
 
     function updateFoodItem(trackedItem) {
         console.log(`Updating food tracking record with ID: ${trackedItem.id}`);
-        fetch(`https://galwinapp-7861c5aaed27.herokuapp.com/track/${trackedItem.id}`, {
+        fetch(`http://localhost:8000/track/${trackedItem.id}`, {
             method: "PUT",
             body: JSON.stringify(trackedItem),
             headers: {
@@ -170,24 +170,30 @@ export default function FoodData(props) {
                         <option value={6}>6.Öğün</option>
                     </select>
 
-                    <div className="nutrient">
-                        <p className="n-title">Pro</p>
-                        <p className="n-value">{formatNumber(food.Protein)}g</p>
-                    </div>
+                    <div className="macros">
 
-                    <div className="nutrient">
-                        <p className="n-title">Karb</p>
-                        <p className="n-value">{formatNumber(food.Carbohydrate)}g</p>
-                    </div>
+                        <div className="nutrient">
+                            <div>
+                            <p className="n-title">Pro</p>
+                            <p className="n-value">{formatNumber(food.Protein)}g</p>
+                            </div>
 
-                    <div className="nutrient">
-                        <p className="n-title">Yağ</p>
-                        <p className="n-value">{formatNumber(food.Fat)}g</p>
-                    </div>
+                            <div>
+                                <p className="n-title">Karb</p>
+                                <p className="n-value">{formatNumber(food.Carbohydrate)}g</p>
+                            </div>
 
-                    <div className="nutrient">
-                        <p className="n-title">Lif</p>
-                        <p className="n-value">{formatNumber(food.Fiber)}g</p>
+                            <div>
+                                <p className="n-title">Yağ</p>
+                                <p className="n-value">{formatNumber(food.Fat)}g</p>
+                            </div>
+
+                            <div>
+                                <p className="n-title">Lif</p>
+                                <p className="n-value">{formatNumber(food.Fiber)}g</p>
+                            </div>
+                        </div>
+
                     </div>
 
                     <input
