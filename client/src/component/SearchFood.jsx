@@ -33,7 +33,7 @@ export default function SearchFood() {
         if (query.length !== 0) {
             setLoading(true); // Set loading to true when search starts
             // ------------------Calling the data to API------------------
-            fetch(`http://localhost:8000/foods/${query}`, {
+            fetch(`https://galwinapp-7861c5aaed27.herokuapp.com/foods/${query}`, {
                 method: "GET",
                 headers: {
                     "Authorization": `Bearer ${loggedData.loggedUser.token}`
