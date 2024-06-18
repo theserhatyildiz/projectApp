@@ -56,7 +56,7 @@ export default function FoodData(props) {
     }
 
     function createFoodItem(trackedItem) {
-        fetch("https://galwinapp-7861c5aaed27.herokuapp.com/track", {
+        fetch("http://localhost:8000/track", {
             method: "POST",
             body: JSON.stringify(trackedItem),
             headers: {
@@ -86,7 +86,7 @@ export default function FoodData(props) {
 
     function updateFoodItem(trackedItem) {
         console.log(`Updating food tracking record with ID: ${trackedItem.id}`);
-        fetch(`https://galwinapp-7861c5aaed27.herokuapp.com/track/${trackedItem.id}`, {
+        fetch(`http://localhost:8000/track/${trackedItem.id}`, {
             method: "PUT",
             body: JSON.stringify(trackedItem),
             headers: {
@@ -159,17 +159,6 @@ export default function FoodData(props) {
                         {food.NameTr} - <span className="eatenQuantity">{eatenQuantity}g:</span> <span className="calorie">{formatNumber(food.Calorie)}kcal</span>
                     </h3>
 
-
-                    <label className="meal-label">Öğün seçin: </label>
-                    <select className="meal-selection" value={mealNumber} onChange={handleMealNumberChange}>
-                        <option value={1}>1.Öğün</option>
-                        <option value={2}>2.Öğün</option>
-                        <option value={3}>3.Öğün</option>
-                        <option value={4}>4.Öğün</option>
-                        <option value={5}>5.Öğün</option>
-                        <option value={6}>6.Öğün</option>
-                    </select>
-
                     <div className="macros">
 
                         <div className="nutrient">
@@ -197,16 +186,34 @@ export default function FoodData(props) {
                         </div>
 
                     </div>
+                  <div className="food-quantity-button">
 
-                    <input
-                        type="number"
-                        onChange={calculateMacros}
-                        className="inp-quant"
-                        placeholder="... gram"
-                    />
+                     <div className="meal-label-selection">
+                        <label className="meal-label">Öğün seçin: </label>
+                            <select className="meal-selection" value={mealNumber} onChange={handleMealNumberChange}>
+                                <option value={1}>1.Öğün</option>
+                                <option value={2}>2.Öğün</option>
+                                <option value={3}>3.Öğün</option>
+                                <option value={4}>4.Öğün</option>
+                                <option value={5}>5.Öğün</option>
+                                <option value={6}>6.Öğün</option>
+                            </select>  
+                    </div>
 
-                    <button className="btn-add" onClick={trackFoodItem}>Ekle</button>
+                    <div className="food-quantity">
+                        <span>Miktar:</span>   
+                        <input
+                            type="number"
+                            onChange={calculateMacros}
+                            className="inp-quant"
+                            placeholder="Giriş yapın"
+                        />
+                    </div>
 
+                    <div className="save-btn">
+                        <button className="btn-add" onClick={trackFoodItem}>Kaydet</button>
+                    </div>
+                </div> 
                     <p className={message.type}>{message.text}</p>
                 </>
             )}
