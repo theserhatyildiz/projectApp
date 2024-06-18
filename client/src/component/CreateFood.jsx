@@ -41,7 +41,7 @@ export default function CreateFood() {
 
     // ------------------Sending the data to API------------------
 
-    fetch("https://galwinapp-7861c5aaed27.herokuapp.com/foods",{
+    fetch("http://localhost:8000/foods",{
         method:"POST",
         body:JSON.stringify(foodDetails),
         headers:{
@@ -84,7 +84,7 @@ export default function CreateFood() {
           <span>100g besin değerlerini girin.</span>
         </div>
 
-        <div className="food">
+        <div className="food-info">
           <div className="name-calorie-form">
             <h2 className="name-form">İsim: </h2>
             <input
