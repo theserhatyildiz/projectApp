@@ -738,6 +738,11 @@ label input{
     text-align: center;
 }
 
+.start-date-box .fa-trash-can{
+    font-size: 0.8rem;
+    color: black;
+}
+
 .start-date-box button{
     text-decoration: underline;
     font-weight: bold;
