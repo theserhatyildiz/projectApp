@@ -169,8 +169,8 @@ a {
     flex-direction: column;
     justify-content: space-around;
     background-color: white;
-    border-top: 1px solid rgb(242, 241, 247);
-    border-bottom: 1px solid rgb(242, 241, 247);
+    border-top: 1px solid rgb(239, 239, 242);
+    border-bottom: 1px solid rgb(239, 239, 242);
     margin-top: 0.5rem;
     margin-bottom: 1rem;
     
@@ -219,7 +219,7 @@ a {
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    border-bottom: 1px solid rgb(242, 241, 247);
+    border-bottom: 1px solid rgb(239, 239, 242);
     margin-bottom: 0.65rem;
     padding-bottom: 1rem;
 }
@@ -227,6 +227,7 @@ a {
 .meal-label{
     padding-left: 0.30rem;
     font-weight: bold;
+    font-size: 1.2rem;
 }
 
 .meal-selection{
@@ -241,13 +242,14 @@ a {
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    border-bottom: 1px solid rgb(242, 241, 247);
+    border-bottom: 1px solid rgb(239, 239, 242);
     margin-bottom: 0.65rem;
 }
 
 .food-quantity span{
     margin-left: 0.30rem;
     font-weight: bold;
+    font-size: 1.2rem;
 }
 
 .save-btn{
@@ -256,7 +258,7 @@ a {
 }
 
 .btn-add{
-    padding: 0.25rem 1rem;
+    padding: 0.45rem 1rem;
     border-radius: 0.75rem;
     background-color: rgb(249, 106, 128);
     color: white;
