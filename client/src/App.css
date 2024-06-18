@@ -870,6 +870,16 @@ label input{
     border-radius: 0.35rem;
 }
 
+.weight-track-btn {
+    display: flex;
+    justify-content: center;
+}
+
+.weight-track-btn .btn-add{
+    width: 70%;
+}
+
+
 /* meal function page css */
 
 .meal-function-container{

@@ -67,7 +67,7 @@ export default function TrackWeight() {
         // Function to fetch weight entries for a specific month
         const fetchEntriesForMonth = async (month, choice) => { // Pass choice as an argument
             try {
-                const response = await fetch(`https://galwinapp-7861c5aaed27.herokuapp.com/weights/${userId}/${year}/${month}?choice=${choice}`, { // Include choice in the URL
+                const response = await fetch(`http://localhost:8000/weights/${userId}/${year}/${month}?choice=${choice}`, { // Include choice in the URL
                     method: "GET",
                     headers: {
                         "Authorization": `Bearer ${token}`,
@@ -152,7 +152,7 @@ export default function TrackWeight() {
     }
 
     const createWeightEntry = (formData) => {
-        fetch("https://galwinapp-7861c5aaed27.herokuapp.com/weights", {
+        fetch("http://localhost:8000/weights", {
             method: "POST",
             body: JSON.stringify(formData),
             headers: {
@@ -171,7 +171,7 @@ export default function TrackWeight() {
     }
 
     const updateWeightEntry = (entryId, formData) => {
-        fetch(`https://galwinapp-7861c5aaed27.herokuapp.com/weights/${entryId}`, {
+        fetch(`http://localhost:8000/weights/${entryId}`, {
             method: "PUT",
             body: JSON.stringify(formData),
             headers: {
@@ -208,7 +208,7 @@ export default function TrackWeight() {
 
 
     const handleDelete = (entryId) => {
-        fetch(`https://galwinapp-7861c5aaed27.herokuapp.com/weights/${entryId}`, {
+        fetch(`http://localhost:8000/weights/${entryId}`, {
             method: "DELETE",
             headers: {
                 "Authorization": `Bearer ${loggedData.loggedUser.token}`,
@@ -418,7 +418,7 @@ export default function TrackWeight() {
     const userId = loggedData.loggedUser.userid;
     const token = loggedData.loggedUser.token;
 
-    fetch(`https://galwinapp-7861c5aaed27.herokuapp.com/users/${userId}/${newStartDate}`, {
+    fetch(`http://localhost:8000/users/${userId}/${newStartDate}`, {
         method: "PUT",
         headers: {
             "Authorization": `Bearer ${token}`,
@@ -442,7 +442,7 @@ const fetchStartDateFromServer = () => {
     // Fetch the start date from the server
     const userId = loggedData.loggedUser.userid;
     const token = loggedData.loggedUser.token;
-    fetch(`https://galwinapp-7861c5aaed27.herokuapp.com/users/${userId}/startdate`, {
+    fetch(`http://localhost:8000/users/${userId}/startdate`, {
         method: "GET",
         headers: {
             "Authorization": `Bearer ${token}`,
@@ -468,7 +468,7 @@ const fetchStartDateFromServer = () => {
 const handleDeleteStartDate = () => {
     const userId = loggedData.loggedUser.userid;
     const token = loggedData.loggedUser.token;
-    fetch(`https://galwinapp-7861c5aaed27.herokuapp.com/users/${userId}/startdate`, {
+    fetch(`http://localhost:8000/users/${userId}/startdate`, {
         method: "DELETE",
         headers: {
             "Authorization": `Bearer ${token}`,
@@ -562,8 +562,9 @@ return (
                                             </label>
                                         </div>
                                     </div>
-                                    <button className="btn-add">+</button>
-
+                                    <div className="weight-track-btn">
+                                        <button className="btn-add">+</button>
+                                    </div>
                                     <div className="start-date-box">
                                         <button onClick={handleMakeStartDate}>Bu tarihi başlangıç yap</button>
                                         
