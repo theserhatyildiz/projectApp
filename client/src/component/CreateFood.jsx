@@ -84,7 +84,7 @@ export default function CreateFood() {
           <span>100g besin değerlerini girin.</span>
         </div>
 
-        <div className="food-info">
+        <div className="create-food-info">
           <div className="name-calorie-form">
             <h2 className="name-form">İsim: </h2>
             <input
