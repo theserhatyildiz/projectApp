@@ -728,10 +728,6 @@ label input{
     margin-right: 0.20rem;
 }
 
-.weight-entry-box button{
- margin-top: 1rem;
-}
-
 .start-date-box{
     display: flex;
     flex-direction: column;
